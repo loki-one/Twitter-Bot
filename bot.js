@@ -25,6 +25,24 @@ function followed(eventMsg){
   tweetIt('.@'+screenName+' thank you for following!');
 }
 
+// Anytime someone tweets you, the bot will reply with thank you for tweeting me!
+stream.on('tweet', tweetEvent);
+
+/*This function will be called whenever someone follows you! or follow event occurs*/
+function tweetEvent(eventMsg){
+  // var fs = require('fs');
+  // var json = JSON.stringify(eventMsg, null, 2);
+  // fs.writeFile("tweet.json", json);
+  var replyto = eventMsg.in_reply_to_screen_name;
+  var text = eventMsg.text;
+  var from = eventMsg.user.screen_name;
+
+  console.log(replyto + ' ' + from);
+  if(replyto === 'test_loki'){
+    var newtweet = '@'+ from + ' thank you for tweeting me!'
+    tweetIt(newtweet);
+  }
+}
 
 /* Example for get() for getting tweets with codingtrain*/
 function tweetGetIt(){
